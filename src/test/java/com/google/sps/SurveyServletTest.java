@@ -16,7 +16,8 @@ package com.google.sps;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -97,7 +98,6 @@ public final class SurveyServletTest {
     // basic test to make sure all parameters have been posted to datastore
 
     HttpServletRequest request = mock(HttpServletRequest.class);
-    HttpServletResponse response = mock(HttpServletResponse.class);
 
     String email = "test@example.com";
     TestingUtil.mockFirebase(request, email);
@@ -113,6 +113,7 @@ public final class SurveyServletTest {
     when(request.getParameter("activism")).thenReturn("4");
     when(request.getParameter("item donation")).thenReturn("4");
 
+    HttpServletResponse response = mock(HttpServletResponse.class);
     testSurveyServlet.doPost(request, response);
 
     DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
