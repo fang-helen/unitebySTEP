@@ -3,26 +3,18 @@
   <head>
     <meta charset="UTF-8">
     <title>Create</title>
-    <link rel="stylesheet" href="style.css">
+    <link id="style" rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/step-favicon.svg" type="image/svg" sizes="16x16">
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
     <script src="script.js"></script>
   </head>
-  <body onload="updateEventTagBox()">
-    <div class="header">
-      <div class="header-left">
-        <a href="/index.html">        
-          <img src="images/uniteLogo.svg" alt="Unite by STEP logo.">
-        </a>
-        <a href="/index.html">Home</a>
-        <a href="/create-event.html">Create</a>
-        <a href="/search.html">Find</a>
-      </div>
-      <div class="header-right">
-        <a href="/my-events.html">My Events</a>
-      </div>
-    </div>
+  <body onload="loadActions(createLoadVerification)">
+    <div class="header"></div>
     <div class="form-container">
       <h1>Let's create an event.</h1>
-      <form>
+      <form action="/event" method="POST" id="eventform" name="eventform" onsubmit="verifyTags();">
         <div class="form-section">
           <div class="form-label">
             <label for="event-name">*Event name:</label>
@@ -90,31 +82,41 @@
         </div>
         <div class="form-section">
           <div class="form-label">
-            <label for="tags">*Tags:</label>
+            <div id="tags-label">
+              <label for="tags">*Tags:</label>
+            </div>
           </div>
           <div class="form-input">
-            <div class="tag-box">
-            </div>
+            <div class="tag-box"></div>
           </div>
         </div>
         <div class="form-section">
-          <div class="form-label">
-            <label for="cover-photo">Cover photo:</label>
-          </div>
+          <div class="form-label"></div>
           <div class="form-input">
-            <input type="file" id="cover-photo" name="cover-photo"><br>
+            <input type="hidden" id="cover-photo" name="cover-photo"><br>
           </div>
         </div>
         <div class="form-buttons">
-          <a href="/my-events.html">
-            <img src="images/submit-button.svg" alt="Submit button.">
-          </a>
+          <input type="submit" value="Submit">
           <div class="divider"></div>
-          <a href="/index.html">
-            <img src="images/cancel-button.svg" alt="Cancel button.">
-          </a>
+          <button onclick="redirectTo('index.html')">Cancel</button>
         </div>
       </form>
     </div>
+    <footer>
+      <p>
+          Icons made by 
+          <a href="https://www.flaticon.com/authors/pixel-perfect" target="_blank">
+          Pixel Perfect</a> &#38;
+          <a href="https://www.flaticon.com/authors/freepik" target="_blank">
+          Freepik</a> from
+          <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">
+          www.flaticon.com</a>
+      </p>
+      <p>Made as part of Google's STEP Internship Program.</p>
+      <h4>Copyright &copy; 2020 All Rights Reserved by 
+         <a href="https://www.google.com/">Google</a>.
+      </h4>
+    </footer>
   </body>
 </html>

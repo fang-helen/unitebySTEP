@@ -14,26 +14,31 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import java.io.IOException;
+import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
+@WebServlet("/delete-event")
+public class DeleteEventServlet extends HttpServlet {
 
-  private static final Logger LOGGER = Logger.getLogger(DataServlet.class.getName());
-
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-  }
+  private static final Logger LOGGER = Logger.getLogger(DeleteEventServlet.class.getName());
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String eventKeyString = request.getParameter("event");
+    Key keyRequested = KeyFactory.stringToKey(eventKeyString);
 
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.delete(keyRequested);
+
+    // Redirect back to the my-events HTML page.
+    response.sendRedirect("/my-events.html");
   }
 }
